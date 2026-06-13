@@ -1,0 +1,44 @@
+Algoritmo FiestaSorpresa
+    Inicio
+        Preparar decoración y comida
+        Invitar a los amigos y familiares
+        Esperar confirmación de asistencia
+
+        Si la persona homenajeada está en casa Entonces
+            Planear cómo sacarla de la casa temporalmente
+            Entonces "Necesitamos distraer al homenajeado"
+        Sino
+            Decorar la casa
+            Organizar comida y bebida
+        FinSi
+
+        Mientras los invitados no hayan llegado Hacer
+            Revisar decoración
+            Preparar música
+            
+        FinMientras
+
+        Si todos los invitados ya llegaron Entonces
+            Apagar luces
+            Esperar a que el homenajeado entre
+            Cuando el homenajeado entra Entonces
+                Encender luces
+                Gritar "¡Sorpresa!"
+                Iniciar fiesta
+        Sino
+            Mostrar mensaje "Esperando más invitados"
+        FinSi
+
+        Durante la fiesta Hacer
+            Reproducir música
+            Servir comida y bebida
+            Tomar fotos
+            Jugar dinámicas divertidas
+        FinDurante
+
+        Al finalizar la fiesta
+            Agradecer a los invitados
+            Limpiar la casa
+            Mostrar mensaje "Fiesta terminada con éxito"
+    Fin
+FinAlgoritmo

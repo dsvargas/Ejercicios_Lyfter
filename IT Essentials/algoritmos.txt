@@ -1,0 +1,77 @@
+Algoritmo VerVideoYouTube
+    Inicio
+        Abrir navegador
+        Ir a la página "www.youtube.com"
+        Si la página carga correctamente Entonces
+            Escribir en la barra de búsqueda el nombre del video
+            Presionar "Enter"
+            Si aparecen resultados Entonces
+                Seleccionar el primer resultado
+                Dar clic en "Reproducir"
+                Mientras el video no haya terminado Hacer
+                    Si el usuario quiere pausar Entonces
+                        Pausar video
+                        Esperar hasta que el usuario presione "Play"
+                    FinSi
+                    Si el usuario quiere adelantar Entonces
+                        Adelantar video
+                    FinSi
+                    Si el usuario quiere retroceder Entonces
+                        Retroceder video
+                    FinSi
+                FinMientras
+                Mostrar mensaje "Video finalizado"
+            Sino
+                Mostrar mensaje "No se encontraron resultados"
+            FinSi
+        Sino
+            Mostrar mensaje "Error al cargar YouTube"
+        FinSi
+    Fin
+FinAlgoritmo
+
+Algoritmo RutinaDiaria
+    Inicio
+        Para cada día en la semana Hacer
+            Despertar a las 6:00 AM
+	    Darle comida a Lina
+	    Ir al baño y lavarme los dientes
+	    sacar a las perras a su caminada diaria
+            Si es día laboral (Lunes a Viernes) Entonces
+                Preparar desayuno
+                Sentarme a trabajar
+                Mientras esté en el trabajo Hacer
+                    Si hay reunión Entonces
+                        Asistir reunión
+                    SinoSi hay tareas pendientes Entonces
+                        Realizar tareas
+                    Sino
+                        Revisar correos
+                    FinSi
+                FinMientras
+                Cerrar computadora 
+                Si es lunes, martes, miercoles, viernes Entonces
+                   ir al gym a hacer ejercicio
+			Mientras estamos en el gym
+		   		Si terminamos rutina
+			 		volvemos a casa
+				sino 
+					seguimos haciendo ejercicios
+                FinSi
+                Cenar
+                tomar un baño
+		dormir
+            Sino   // Fin de semana
+                Dormir un poco más
+                Si es sábado Entonces
+                    Hacer limpieza en casa
+                SinoSi es domingo Entonces
+                    Salir con amigos o familia
+                FinSi
+                Jugar con las zaguatas
+            FinSi
+            Dormir a las 10:00 PM
+        FinPara
+    Fin
+FinAlgoritmo
+

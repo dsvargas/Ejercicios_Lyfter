@@ -1,0 +1,86 @@
+Algoritmo OrdenarDosNumeros
+    
+    // Declaración de variables
+    Definir primero, segundo, auxiliar Como Real INT
+    
+    // Entrada de datos
+    Escribir "Ingrese el primer número:"
+    Leer primero <- input de usuario
+    Escribir "Ingrese el segundo número:"
+    Leer segundo <- input de usuario
+    
+    // Lógica de ordenamiento
+    // Solo hacemos el intercambio si el primero es MAYOR que el segundo
+    Si primero > segundo Entonces
+        auxiliar = primero   // Guardamos el valor de 'primero' para no perderlo
+        primero = segundo    // Pasamos el valor menor a 'primero'
+        segundo = auxiliar   // Pasamos el valor guardado en el auxiliar a 'segundo'
+    FinSi
+    
+    // Salida de resultados (ya ordenados de menor a mayor)
+    Escribir "Números ordenados:"
+    Escribir "Primero (menor): ", primero
+    Escribir "Segundo (mayor): ", segundo
+
+FinAlgoritmo
+
+
+Algoritmo ConvertirVelocidad
+    
+    // Declaración de variables
+    Definir velocidadKmh, velocidadMs Como Real INT
+    
+    // Entrada de datos
+    Escribir "Por favor, ingrese la velocidad en km/h:"
+    Leer velocidadKmh <- input de usuario
+    
+    // Proceso de conversión
+    // (velocidadKmh * 1000) / 3600  es equivalente a dividir entre 3.6
+    velocidadMs = velocidadKmh / 3.6
+    
+    // Salida de resultados
+    Escribir "La velocidad equivalente es: ", velocidadMs, " m/s"
+
+FinAlgoritmo
+
+
+
+Algoritmo CalcularPorcentajeSexo
+    
+    // Declaración de variables
+    Definir contadorMujeres, contadorHombres, opcion, i Como Entero
+    Definir porcentajeMujeres, porcentajeHombres Como Real
+    
+    // Inicializamos los contadores en cero
+    contadorMujeres = 0
+    contadorHombres = 0
+    
+    // Ciclo para registrar a las 6 personas
+    Para i = 1 Hasta 6  Hacer
+        Escribir "Persona ", i, ": Ingrese 1 si es mujer o 2 si es hombre:"
+        Leer opcion <- input de usuario
+        
+        // Evaluamos la opción ingresada
+        Si opcion = 1 Entonces
+            contadorMujeres = contadorMujeres + 1
+        Sino Si opcion = 2 Entonces
+            contadorHombres = contadorHombres + 1
+        Sino
+            // En caso de que ingresen un número inválido
+            Escribir "Opción no válida. Inténtelo de nuevo para esta persona."
+            i = i - 1 // Restamos 1 al contador para repetir el intento de esta persona
+        FinSi
+		//aumentar el i
+		i++
+    FinPara
+    
+    // Cálculo de porcentajes (sobre el total de 6 personas)
+    porcentajeMujeres = (contadorMujeres / 6) * 100
+    porcentajeHombres = (contadorHombres / 6) * 100
+    
+    // Salida de resultados
+    Escribir "--- Resultados Finales ---"
+    Escribir "Porcentaje de mujeres: ", porcentajeMujeres, "%"
+    Escribir "Porcentaje de hombres: ", porcentajeHombres, "%"
+
+FinAlgoritmo

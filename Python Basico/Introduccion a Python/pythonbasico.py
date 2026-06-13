@@ -1,0 +1,5 @@
+print("--- RESULTS OF THE OPERATIONS ---")
+print("1. Addition (1 + 1):", 1+1)
+print("2. Subtraction (90-430):", 90-430)
+print("3. Multiplication (4*5):", 4*5)
+print("4. Division (50/10):", 50/10)

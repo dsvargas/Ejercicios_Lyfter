@@ -1,0 +1,49 @@
+Algoritmo PrepararseViajeDiversion
+    Inicio
+        Crear lista de actividades:
+            - Empacar ropa adecuada
+            - Guardar documentos importantes (pasaporte, identificación, boletos)
+            - Preparar dinero y tarjetas
+            - Revisar reservaciones (hotel, transporte)
+            
+        ListoParaViaje ← Falso
+
+        Mientras ListoParaViaje = Falso Hacer
+            Revisar maleta()
+            Si falta ropa o artículos esenciales Entonces
+                Agregar lo que falta
+            FinSi
+
+            Si documentos no están completos Entonces
+                Buscar y guardar documentos
+            FinSi
+
+            Si reservaciones no están confirmadas Entonces
+                Llamar o verificar en línea
+            FinSi
+
+            Si todo está en orden Entonces
+                ListoParaViaje ← Verdadero
+            Sino
+                Mostrar mensaje "Aún falta preparación"
+            FinSi
+        FinMientras
+		
+		ListoTransporte ← Falso
+
+		Mientras transporte no este listo
+			Si el transporte está a tiempo Entonces
+				Salir de casa
+				Dirigirse al aeropuerto
+			Sino
+				Mostrar mensaje "Esperar transporte o buscar alternativa"
+			FinSi
+
+        FinMientras
+
+        Al finalizar el viaje
+            Regresar a casa
+            Guardar recuerdos
+            Mostrar mensaje "Viaje finalizado con éxito"
+    Fin
+FinAlgoritmo

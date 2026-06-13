@@ -1,0 +1,74 @@
+Algoritmo CalcularDescuentoProducto
+    
+    // Declaración de variables
+    Definir precioOriginal, descuento, precioFinal Como Real INT
+    
+    // Entrada de datos
+    Escribir "Por favor, ingrese el precio del producto:"
+    Leer precioOriginal<- input del cliente
+    
+    //Calcular el descuento
+    Si precioOriginal < 100 Entonces
+        descuento = precioOriginal * 0.02  // 2% de descuento
+    Sino
+        descuento = precioOriginal * 0.10  // 10% de descuento
+    FinSi
+    
+    // Cálculo del precio final
+    precioFinal = precioOriginal - descuento
+    
+    // Salida de resultados
+    Escribir "El descuento aplicado es de: ", descuento
+    Escribir "El precio final a pagar es de: ", precioFinal
+
+FinAlgoritmo
+
+Algoritmo EvaluarTiempoEnSegundos
+    
+    // Declaración de variables
+    Definir segundosUsuario, segundosFaltantes Como Entero
+    
+    // Entrada de datos
+    Escribir "Por favor, ingrese un tiempo en segundos:"
+    Leer segundosUsuario
+    
+    // Lógica de comparación (600 segundos = 10 minutos)
+    Si segundosUsuario < 600 Entonces
+        // Si es menor, calculamos la diferencia para llegar a 600
+        segundosFaltantes = 600 - segundosUsuario
+        Escribir "Faltarían ", segundosFaltantes, " segundos para llegar a 10 minutos."
+        
+    Sino Si segundosUsuario > 600 Entonces
+        // Si es mayor
+        Escribir "Mayor"
+        
+    Sino
+        // Si no es menor ni mayor, por descarte es exactamente igual
+        Escribir "Igual"
+    FinSi
+
+FinAlgoritmo
+
+Algoritmo SumaSecuencial
+    
+    // Declaración de variables
+    Definir numeroUsuario, suma, i Como Entero
+    
+    // Inicializamos la variable
+    suma = 0
+    
+    // Entrada de datos
+    Escribir "Por favor, ingrese un número entero positivo:"
+    Leer numeroUsuario <- input del usuario
+    
+    // Ciclo para sumar desde 1 hasta el número ingresado
+    Para i = 1 Hasta numeroUsuario
+        suma = suma + i  // Vamos acumulando el valor de 'i' en cada vuelta
+		// aumente la variable contadora del ciclo en uno
+		i++ 
+    FinPara
+    
+    // Salida del resultado
+    Escribir "La suma de los números del 1 al ", numeroUsuario, " es: ", suma
+
+FinAlgoritmo
