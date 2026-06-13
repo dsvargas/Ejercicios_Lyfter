@@ -1,0 +1,38 @@
+Algoritmo PrepararseExamen
+    Inicio
+        Crear lista de actividades:
+            - Leer apuntes y libros
+            - Repasar temas clave
+            - Practicar ejercicios
+            - Resolver preguntas de exámenes anteriores
+
+        SentirseListo ← Falso
+
+        Mientras SentirseListo = Falso Hacer
+            Leer apuntes
+            Repasar temas clave
+
+            Si entiende la materia Entonces
+                Practicar ejercicios
+                Si al resolver ejercicios no hay errores Entonces
+                    Mostrar mensaje "Materia dominada"
+                Sino
+                    Identificar errores
+                    Revisar teoría nuevamente
+                FinSi
+            Sino
+                Mostrar mensaje "Todavía hay dudas"
+                Buscar ayuda (profesor, compañero, tutoriales)
+            FinSi
+
+            Si después de repasar y practicar se siente confiado ya entendio la materia Entonces
+                SentirseListo ← Verdadero
+            Sino
+                Mostrar mensaje "Seguir estudiando"
+            FinSi
+        FinMientras
+
+        Mostrar mensaje "¡Listo para el examen!"
+    Fin
+FinAlgoritmo
+-
