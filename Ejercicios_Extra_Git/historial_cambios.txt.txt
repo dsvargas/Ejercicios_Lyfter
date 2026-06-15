@@ -1,0 +1,12 @@
+PS C:\Users\dilan\OneDrive\Escritorio\Lyfter\Ejercicios_Lyfter> git log
+commit 082040f5ea196a59c59b41991210c891ceba8b51 (HEAD -> past-exercises, origin/past-exercises)
+Author: Dilana Sancho Vargas <dsvargas.211@gmail.com>
+Date:   Mon Jun 15 12:34:59 2026 -0600
+
+    Added 4 exercises for module of CSV
+
+commit ca8f3a5060b390c10c3ed77916c42f46206f9555 (origin/ejercicios-modulos, ejercicios-modulos)
+Author: Dilana Sancho Vargas <dsvargas.211@gmail.com>
+Date:   Sat Jun 13 17:17:53 2026 -0600
+
+    Adding exercise for practice with git
