@@ -1,0 +1,10 @@
+commit 082040f5ea196a59c59b41991210c891ceba8b51 (HEAD -> past-exercises, origin/past-exercises)
+Author: Dilana Sancho Vargas <dsvargas.211@gmail.com>
+commit 082040f5ea196a59c59b41991210c891ceba8b51 (HEAD -> past-exercises, origin/past-exercises)
+Author: Dilana Sancho Vargas <dsvargas.211@gmail.com>
+Date:   Mon Jun 15 12:34:59 2026 -0600
+
+    Added 4 exercises for module of CSV
+
+A la carpeta de Manejo de CVSs se agregaron 4 archivos, dos de ejercicios en python y dos donde se guardan la informacion
+uno separado por comas y el otro separado por tabs
