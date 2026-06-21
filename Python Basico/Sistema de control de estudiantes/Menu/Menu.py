@@ -1,53 +1,48 @@
 # Importamos los módulos que te solicita el ejercicio
-from Menu import menu
-from Actions import actions
-from Data import data
+from Actions.Actions import insert_students, show_top_students, show_average_grade, show_students
+from Data.Students import insert_students_to_csv, get_students_from_csv, modify_students_to_csv, delete_students_to_csv 
 
-def main():
-    
-    
-    # Esta lista global en memoria guardará los diccionarios de cada estudiante.
-    # Al pasarla como argumento a las funciones, todos los módulos compartirán la misma info.
-    students_list = []
-    
-    print("=========================================")
-    print(" Sistema de Control Académico Iniciado ")
-    print("=========================================")
-    
+def show_menu():
+    print("\nBienvenido al sistema de control de estudiantes")
+    print("1. Registrar estudiantes")
+    print("2. Ver el top 3 de los estudiantes con la mejor nota promedio")
+    print("3. Ver la nota promedio entre las notas de todos los estudiantes registrados en el sistema")
+    print("4. Ver la lista de estudiantes registrados en el sistema")
+    print("5. Modificar un estudiante registrado en el sistema")
+    print("6. Eliminar un estudiante registrado en el sistema (aun en proceso)")
+    print("7. Salir")
     while True:
-        # 1. Mostramos el menú y capturamos la opción ya validada (gracias al módulo menu)
-        opcion = menu.mostrar_y_validar_menu()
-        
-        # 2. Evaluamos la opción seleccionada y delegamos la tarea al módulo correspondiente
-        if opcion == '1':
-            # Ingresar n cantidad de estudiantes
-            actions.ingresar_estudiantes(students_list)
-            
-        elif opcion == '2':
-            # Ver la información de todos los estudiantes
-            actions.ver_todos_estudiantes(students_list)
-            
-        elif opcion == '3':
-            # Ver el top 3 de estudiantes con mejor promedio
-            actions.ver_top_tres_estudiantes(students_list)
-            
-        elif opcion == '4':
-            # Ver el promedio general de la institución
-            actions.ver_promedio_general(students_list)
-            
-        elif opcion == '5':
-            # Exportar datos actuales a un archivo CSV
-            data.exportar_a_csv(students_list)
-            
-        elif opcion == '6':
-            # Importar datos desde un archivo CSV previo
-            # Asignamos el retorno a la lista para actualizar los datos en memoria
-            students_list = data.importar_desde_csv()
-            
-        elif opcion == '7':
-            # Salida segura del sistema
-            print("\nGracias por utilizar el sistema académico. ¡Hasta luego!")
-            break
+        choice = input("Seleccione una opción: ")
+        if choice not in ['1', '2', '3', '4', '5', '6', '7']:
+            print("Opción no válida. Por favor, seleccione una opción del 1 al 7.")
+            return None
+        return choice
 
-if __name__ == "__main__":
-    main()
+def main_menu():
+    students_file = "students.csv"
+    students_list = get_students_from_csv(students_file)
+
+    while True:
+        choice = show_menu()
+
+        if choice == '1':
+            insert_students(students_list)
+            insert_students_to_csv(students_file, students_list)
+        elif choice == '2':
+            student_list = get_students_from_csv("students.csv")  # Aseguramos que tenemos los datos más recientes antes de mostrar el top
+            show_top_students(student_list)
+        elif choice == '3':
+            student_list = get_students_from_csv("students.csv")  # Aseguramos que tenemos los datos más recientes antes de mostrar el promedio
+            show_average_grade(student_list)
+        elif choice == '4':
+            student_list = get_students_from_csv("students.csv")  # Aseguramos que tenemos los datos más recientes antes de mostrar la lista
+            show_students(students_list)
+        elif choice == '5':  # Aseguramos que tenemos los datos más recientes antes de modificar
+            modify_students_to_csv(students_file, student_list)
+        elif choice == '6':
+            delete_students_to_csv(students_file, students_list)
+        elif choice == '7':
+            print("Gracias por usar el sistema de control de estudiantes")
+            break
+        else:
+            print("Existe un error en la selección de la opción. Por favor, intente nuevamente.")
