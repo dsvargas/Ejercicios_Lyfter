@@ -60,6 +60,7 @@ def read_valid_grade(prompt):
 
 def validate_student_existence(name, first_last_name, second_last_name,section):
     """Valida si un estudiante ya existe en la lista de estudiantes."""
+    list_students = get_students_from_csv("students.csv")  # Aseguramos que tenemos los datos más recientes antes de validar
     for student in list_students:
         if (student["name"].lower() == name.lower() and
             student["first_last_name"].lower() == first_last_name.lower() and
@@ -150,3 +151,48 @@ def show_average_grade(list_students):
     print(f"Promedio de inglés: {average_english:.2f}")
     print(f"Promedio de sociales: {average_social:.2f}")
     print(f"Promedio de ciencias: {average_science:.2f}")
+
+def modify_students(students_list):
+    name = input("Ingrese el nombre del estudiante a modificar: ")
+    first_last_name = input("Ingrese el primer apellido del estudiante a modificar: ")
+    second_last_name = input("Ingrese el segundo apellido del estudiante a modificar: ")
+    section = input("Ingrese la sección del estudiante a modificar: ")
+
+    for student in students_list:
+        if (student["name"].lower() == name.lower() and
+            student["first_last_name"].lower() == first_last_name.lower() and
+            student["second_last_name"].lower() == second_last_name.lower() and
+            student["section"].lower() == section.lower()):
+            
+            print("Estudiante encontrado. Ingrese los nuevos datos:")
+            student["name"] = is_valid_name("Ingrese el nuevo nombre del estudiante: ")
+            student["first_last_name"] = is_valid_first_last_name("Ingrese el nuevo primer apellido del estudiante: ")
+            student["second_last_name"] = is_valid_second_last_name("Ingrese el nuevo segundo apellido del estudiante: ")
+            student["section"] = is_valid_section("Ingrese la nueva sección del estudiante (ejemplo: 11B): ").strip()
+            student["spanish_grade"] = read_valid_grade("Ingrese la nueva nota de español: ")
+            student["english_grade"] = read_valid_grade("Ingrese la nueva nota de inglés: ")
+            student["social_grade"] = read_valid_grade("Ingrese la nueva nota de sociales: ")
+            student["science_grade"] = read_valid_grade("Ingrese la nueva nota de ciencias: ")
+            
+            print("¡Estudiante modificado con éxito!")
+            return
+
+    print("No se encontró un estudiante con esos datos.")
+
+def delete_students(students_list):
+    name = input("Ingrese el nombre del estudiante a eliminar: ")
+    first_last_name = input("Ingrese el primer apellido del estudiante a eliminar: ")
+    second_last_name = input("Ingrese el segundo apellido del estudiante a eliminar: ")
+    section = input("Ingrese la sección del estudiante a eliminar: ")
+    if validate_student_existence(name, first_last_name, second_last_name, section):
+        for i, student in enumerate(students_list):
+            if (student["name"].lower() == name.lower() and
+                student["first_last_name"].lower() == first_last_name.lower() and
+                student["second_last_name"].lower() == second_last_name.lower() and
+                student["section"].lower() == section.lower()):
+                
+                del students_list[i]
+                print("¡Estudiante eliminado con éxito!")
+                return
+
+    print("No se encontró un estudiante con esos datos.")
