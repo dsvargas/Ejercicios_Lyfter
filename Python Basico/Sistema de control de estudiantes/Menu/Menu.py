@@ -1,9 +1,7 @@
-# Importamos los módulos que te solicita el ejercicio
 from os import name
 import os
-
-from Actions.Actions import insert_students, show_top_students, show_average_grade, show_students
-from Data.Students import insert_students_to_csv, get_students_from_csv, modify_students_to_csv, delete_students_to_csv 
+from Actions.Actions import insert_students, show_top_students, show_average_grade, show_students, delete_students
+from Data.Students import insert_students_to_csv, get_students_from_csv
 
 import csv
 
@@ -46,7 +44,7 @@ def main_menu():
         elif choice == '5':  # Aseguramos que tenemos los datos más recientes antes de modificar
             print("Gracias por usar el sistema de control de estudiantes")
         elif choice == '6':
-            delete_students_to_csv(students_list)
+            delete_students(students_list)
         elif choice == '7':
             export_choice = input("¿Desea exportar la lista de estudiantes a un archivo CSV antes de salir? (s/n): ").strip().lower()
             if export_choice == 's':
@@ -81,15 +79,6 @@ def main_menu():
                         # Al no haber un break aquí, el while vuelve a pedir el input()
             else:
                 print("No se importó ningún archivo CSV.")
-
-
-
-
-
-
-
-
-
 
         elif choice == '9':
             print("Gracias por usar el sistema de control de estudiantes")

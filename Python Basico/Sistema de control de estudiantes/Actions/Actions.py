@@ -1,27 +1,29 @@
 import csv
+from os import name
+import os
 from Data.Students import insert_students_to_csv, get_students_from_csv, modify_students_to_csv, delete_students_to_csv
 
 def is_valid_name(prompt):
     while True:
         name = input(prompt).strip()
-        if not all(char.isalpha() or char.isspace() for char in name):
-            print("Error: El nombre solo puede contener letras y espacios.")
+        if not all(char.isalpha() or not char.isspace() for char in name):
+            print("Error: El nombre solo puede contener letras.")
         else:
             return name
         
 def is_valid_first_last_name(prompt):
     while True:
         first_last_name = input(prompt).strip()
-        if not all(char.isalpha() or char.isspace() for char in first_last_name):
-            print("Error: El primer apellido solo puede contener letras y espacios.")
+        if not all(char.isalpha() or not char.isspace() for char in first_last_name):
+            print("Error: El primer apellido solo puede contener letras.")
         else:
             return first_last_name
 
 def is_valid_second_last_name(prompt):
     while True:
         second_last_name = input(prompt).strip()
-        if not all(char.isalpha() or char.isspace() for char in second_last_name):
-            print("Error: El segundo apellido solo puede contener letras y espacios.")
+        if not all(char.isalpha() or not char.isspace() for char in second_last_name):
+            print("Error: El segundo apellido solo puede contener letras.")
         else:
             return second_last_name
 
@@ -58,10 +60,9 @@ def read_valid_grade(prompt):
         except ValueError:
             print("Error: Por favor, ingrese un número entero válido para la nota.")
 
-def validate_student_existence(name, first_last_name, second_last_name,section):
+def validate_student_existence(list_of_students,name, first_last_name, second_last_name,section):
     """Valida si un estudiante ya existe en la lista de estudiantes."""
-    list_students = get_students_from_csv("students.csv")  # Aseguramos que tenemos los datos más recientes antes de validar
-    for student in list_students:
+    for student in list_of_students:
         if (student["name"].lower() == name.lower() and
             student["first_last_name"].lower() == first_last_name.lower() and
             student["second_last_name"].lower() == second_last_name.lower() and
@@ -83,18 +84,19 @@ def insert_students(list_students):
         student["first_last_name"] = is_valid_first_last_name("Ingrese el primer apellido del estudiante: ")
         student["second_last_name"] = is_valid_second_last_name("Ingrese el segundo apellido del estudiante: ")
         student["name"] = is_valid_name("Ingrese el nombre del estudiante: ")
-
         student["section"] = is_valid_section("Ingrese la sección del estudiante (ejemplo: 11B): ").strip()
-        
-        # Captura de notas usando nuestra función validadora con try-except persistente
-        student["spanish_grade"] = read_valid_grade("Ingrese la nota de español: ")
-        student["english_grade"] = read_valid_grade("Ingrese la nota de inglés: ")
-        student["social_grade"] = read_valid_grade("Ingrese la nota de sociales: ")
-        student["science_grade"] = read_valid_grade("Ingrese la nota de ciencias: ")
-        
-        
-        list_students.append(student)
-        print("¡Estudiante registrado con éxito en el sistema!")
+
+        if validate_student_existence(list_students, student["name"], student["first_last_name"], student["second_last_name"], student["section"]):
+            print("Error: Este estudiante ya está registrado en el sistema. No se puede duplicar.")
+        else:
+            # Captura de notas usando nuestra función validadora con try-except persistente
+            student["spanish_grade"] = read_valid_grade("Ingrese la nota de español: ")
+            student["english_grade"] = read_valid_grade("Ingrese la nota de inglés: ")
+            student["social_grade"] = read_valid_grade("Ingrese la nota de sociales: ")
+            student["science_grade"] = read_valid_grade("Ingrese la nota de ciencias: ")
+
+            list_students.append(student)
+            print("¡Estudiante registrado con éxito en el sistema!")
 
 def show_students(students_list):
     for row in students_list:
@@ -184,7 +186,8 @@ def delete_students(students_list):
     first_last_name = input("Ingrese el primer apellido del estudiante a eliminar: ")
     second_last_name = input("Ingrese el segundo apellido del estudiante a eliminar: ")
     section = input("Ingrese la sección del estudiante a eliminar: ")
-    if validate_student_existence(name, first_last_name, second_last_name, section):
+    print(f"Intentando eliminar al estudiante: {name} {first_last_name} {second_last_name}, Sección: {section}")
+    if validate_student_existence(students_list,name, first_last_name, second_last_name, section):
         for i, student in enumerate(students_list):
             if (student["name"].lower() == name.lower() and
                 student["first_last_name"].lower() == first_last_name.lower() and
