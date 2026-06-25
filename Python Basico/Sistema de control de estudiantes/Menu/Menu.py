@@ -1,6 +1,6 @@
 from os import name
 import os
-from Actions.Actions import insert_students, show_top_students, show_average_grade, show_students, delete_students
+from Actions.Actions import insert_students, show_top_students, show_average_grade, show_students, delete_students, show_failed_students
 from Data.Students import insert_students_to_csv, get_students_from_csv
 
 import csv
@@ -16,14 +16,15 @@ def show_menu():
         print("6. Eliminar un estudiante registrado en el sistema")
         print("7. exportar la lista de estudiantes a un archivo CSV")
         print("8. importar la lista de estudiantes desde un archivo CSV")
-        print("9. Salir")
-  
+        print("9. Ver estudiantes reprobados")
+        print("10. Salir")
+
         choice = input("Seleccione una opción: ")
-        
-        if choice in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
+
+        if choice in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
             return choice
         else:
-            print("Opción no válida. Por favor, seleccione una opción del 1 al 9.")
+            print("Opción no válida. Por favor, seleccione una opción del 1 al 10.")
 
 def main_menu():
     students_list = []
@@ -81,6 +82,8 @@ def main_menu():
                 print("No se importó ningún archivo CSV.")
 
         elif choice == '9':
+            show_failed_students(students_list)
+        elif choice == '10':
             print("Gracias por usar el sistema de control de estudiantes")
             break
         else:

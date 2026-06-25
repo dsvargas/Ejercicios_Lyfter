@@ -154,6 +154,25 @@ def show_average_grade(list_students):
     print(f"Promedio de sociales: {average_social:.2f}")
     print(f"Promedio de ciencias: {average_science:.2f}")
 
+#Muestre los estudiantes reprobados, enlistando todos los que tengan al menos una materia con nota menor a 60.
+def show_failed_students(list_students):
+    failed_students = [student for student in list_students if any(int(student[subject]) < 60 for subject in ["spanish_grade", "english_grade", "social_grade", "science_grade"])]
+
+    if not failed_students:
+        print("\nNo hay estudiantes reprobados.")
+        return
+
+    print("\n--- Estudiantes Reprobados ---")
+    for student in failed_students:
+        print(f"Nombre completo: {student['name']} {student['first_last_name']} {student['second_last_name']}")
+        print(f"Sección: {student['section']}")
+        print(f"Nota de español: {student['spanish_grade']}")
+        print(f"Nota de inglés: {student['english_grade']}")
+        print(f"Nota de sociales: {student['social_grade']}")
+        print(f"Nota de ciencias: {student['science_grade']}")
+        print("-" * 40)
+
+
 def modify_students(students_list):
     name = input("Ingrese el nombre del estudiante a modificar: ")
     first_last_name = input("Ingrese el primer apellido del estudiante a modificar: ")
