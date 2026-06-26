@@ -39,12 +39,61 @@ class Human:
         print(f"Right Arm: Length - {self.right_arm.length}, Strength - {self.right_arm.strength}")
         print(f"Left Leg: Length - {self.left_leg.length}, Strength - {self.left_leg.strength}")
         print(f"Right Leg: Length - {self.right_leg.length}, Strength - {self.right_leg.strength}")
-human = Human(
+human1 = Human(
     head=Head(hair_color="Brown", eye_color="Blue"),
     torso=Torso(chest_size=40, waist_size=32),
     left_arm=Arm(length=20, strength=80),
-    right_arm=Arm(length=20, strength=80),
-    left_leg=Leg(length=40, strength=90),
-    right_leg=Leg(length=40, strength=90)
+    right_arm=Arm(length=120, strength=80),
+    left_leg=Leg(length=410, strength=90),
+    right_leg=Leg(length=410, strength=90)
 )
-human.describe_human() 
+human2 = Human(
+    head=Head(hair_color="Brown", eye_color="Blue"),
+    torso=Torso(chest_size=40, waist_size=32),
+    left_arm=Arm(length=20, strength=80),
+    right_arm=Arm(length=120, strength=80),
+    left_leg=Leg(length=410, strength=90),
+    right_leg=Leg(length=410, strength=90)
+)
+human3 = Human(
+    head=Head(hair_color="Brown", eye_color="Blue"),
+    torso=Torso(chest_size=40, waist_size=32),
+    left_arm=Arm(length=20, strength=80),
+    right_arm=Arm(length=120, strength=80),
+    left_leg=Leg(length=410, strength=90),
+    right_leg=Leg(length=410, strength=90)
+)
+human4 = Human(
+    head=Head(hair_color="Brown", eye_color="Blue"),
+    torso=Torso(chest_size=40, waist_size=32),
+    left_arm=Arm(length=20, strength=80),
+    right_arm=Arm(length=120, strength=80),
+    left_leg=Leg(length=410, strength=90),
+    right_leg=Leg(length=410, strength=90)
+)
+human5 = Human(
+    head=Head(hair_color="Brown", eye_color="Blue"),
+    torso=Torso(chest_size=40, waist_size=32),
+    left_arm=Arm(length=20, strength=80),
+    right_arm=Arm(length=120, strength=80),
+    left_leg=Leg(length=410, strength=90),
+    right_leg=Leg(length=410, strength=90)
+)
+human6 = Human(
+    head=Head(hair_color="Brown", eye_color="Blue"),
+    torso=Torso(chest_size=40, waist_size=32),
+    left_arm=Arm(length=20, strength=80),
+    right_arm=Arm(length=120, strength=80),
+    left_leg=Leg(length=410, strength=90),
+    right_leg=Leg(length=410, strength=90)
+)
+human7 = Human(
+    head=Head(hair_color="Brown", eye_color="Blue"),
+    torso=Torso(chest_size=40, waist_size=32),
+    left_arm=Arm(length=20, strength=80),
+    right_arm=Arm(length=120, strength=80),
+    left_leg=Leg(length=410, strength=90),
+    right_leg=Leg(length=410, strength=90)
+)
+
+human1.describe_human() 
