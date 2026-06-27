@@ -3,10 +3,10 @@ class Rectangle:
         self.width = 0
         self.height = 0
 
-    def area(self):
+    def get_area(self):
         return self.width * self.height
 
-    def perimeter(self):
+    def get_perimeter(self):
         return 2 * (self.width + self.height)
 
     def __str__(self):
@@ -23,9 +23,13 @@ class Rectangle:
             raise ValueError("Height cannot be negative.")
         self.height = height
 
-rectangle = Rectangle()
-rectangle.set_width(250)
-rectangle.set_height(300)
+
 #rectangle.set_width(-3)  # This will raise a ValueError
 print(rectangle.area())
 print(rectangle.perimeter())
+
+def create_rectangle():
+    width = int()
+    rectangle = Rectangle()
+    rectangle.set_width(250)
+    rectangle.set_height(300)

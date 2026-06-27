@@ -7,11 +7,11 @@ class Animal:
 
 class Dog(Animal):
     def speak(self):
-        print("Guau")
+       return "Guau"
 
 class Cat(Animal):
     def speak(self):
-        print("Miau")
+        return "Miau"
 
         
 dog = Dog("Fido")
