@@ -26,11 +26,11 @@ class WiFiConnector:
     def connect_to_network(self, network_name):
         self.is_connected = True
         self.ip = "192.168.1.45"
-        print(f"🌐 Successfully connected to network: '{network_name}' with IP: {self.ip}")
+        print(f"Successfully connected to network: '{network_name}' with IP: {self.ip}")
 
     def disconnect_from_network(self):
         self.is_connected = False
-        print("🌐 Disconnected from the wireless network.")
+        print("Disconnected from the wireless network.")
 
 
 # CLASE CON HERENCIA MÚLTIPLE
