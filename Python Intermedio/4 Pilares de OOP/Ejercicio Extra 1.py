@@ -10,7 +10,7 @@ Cree una clase Employee con los siguientes requisitos:
 class Employee:
     def __init__(self, name, salary):
         self._name = name
-        self.salary = salary
+        self._salary = salary
 
     @property
     def name(self):
@@ -36,7 +36,7 @@ class Employee:
     def promote(self, percentage):
         if percentage > 0:
             increase = self._salary * (percentage / 100)
-            self.salary += increase  # Usamos el setter de forma interna
+            self._salary += increase  # Usamos el setter de forma interna
             print(f"¡{self._name} ha sido promovido! Aumento del {percentage}%.")
         else:
             print(" El porcentaje de aumento debe ser mayor a cero.")
