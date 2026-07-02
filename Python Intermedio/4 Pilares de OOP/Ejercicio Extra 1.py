@@ -35,7 +35,7 @@ class Employee:
     
     def promote(self, percentage):
         if percentage > 0:
-            increase = self._salary * (percentage / 100)
+            increase = self._salary * percentage
             self._salary += increase  # Usamos el setter de forma interna
             print(f"¡{self._name} ha sido promovido! Aumento del {percentage}%.")
         else:

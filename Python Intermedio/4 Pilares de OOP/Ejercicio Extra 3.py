@@ -26,15 +26,15 @@ class Car(Vehicle):
         self._doors = doors
 
     def get_info(self):
-        return f"Marca: {self._brand}, Año: {self._year}, Puertas: {self._doors}" 
+        return f"{self._brand}  {self._year} - {self._doors}" 
 
 class Motorcycle(Vehicle):
-    def __init__(self, brand, year, type):
+    def __init__(self, brand, year, moto_type):
         super().__init__(brand, year)
-        self._type = type
+        self.moto_type = moto_type
 
     def get_info(self):
-        return f"Marca: {self._brand}, Año: {self._year}, Tipo: {self._type}"
+        return f"{self._brand} {self._year} - {self.moto_type}"
     
 
 vehicle1 = Car("Toyota", 2020, 4)
