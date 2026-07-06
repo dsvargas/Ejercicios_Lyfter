@@ -26,3 +26,21 @@ def check_adult(func):
 
     return wrapper
 
+
+@check_adult
+def rent_vehicle(user):
+    print(" puede alquilar un vehículo.")
+
+
+def hacer_prueba():
+    # Creamos un usuario mayor de edad y uno menor de edad
+    adulto = User( datetime.date(1998, 5, 15))
+    menor = User( datetime.date(2012, 10, 20))
+
+    print(f"--- Evaluando (Edad: {adulto.age} años) ---")
+    rent_vehicle(adulto)
+
+    print(f"--- Evaluando (Edad: {menor.age} años) ---")
+    rent_vehicle(menor)
+
+hacer_prueba()
