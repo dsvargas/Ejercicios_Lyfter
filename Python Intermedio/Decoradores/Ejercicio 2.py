@@ -6,7 +6,7 @@ Cree una clase de User que:
     Tenga un property de age.
     Luego cree un decorador para funciones que acepten un User como parámetro que se encargue de revisar si el User es mayor de edad y arroje una excepción de no ser así.
 """
-
+import datetime
 class User:
     def __init__(self, date_of_birth):
         self.date_of_birth = date_of_birth
@@ -14,6 +14,7 @@ class User:
     @property
     def age(self):
         # Implementación para calcular la edad basada en date_of_birth
+        today = datetime.date.today()
         calculated_age = today.year - self.date_of_birth.year
         return calculated_age
 
@@ -24,3 +25,4 @@ def check_adult(func):
         return func(user, *arg, **kwargs)
 
     return wrapper
+

@@ -4,12 +4,14 @@ def decorator_name(func):
     def wrapper(parameters):
         print(f"Parámetros: {parameters}")
         result = func(parameters)
+        print(f"Retorno: {result}")
         return result
     return wrapper
 
 @decorator_name
 def funtion_name(parameters):
     return parameters
+
 
 
 funtion_name(5)
@@ -23,11 +25,11 @@ def decorator_check_numbers(func):
         for param in parameters:
             if not isinstance(param, (int, float)):
                 raise TypeError("Todos los parámetros deben ser números")
-        func(*parameters) # Llamada a la funcion decorada
-				# Logica extra
+        result = func(*parameters) # Llamada a la funcion decorada
+        # Logica extra
+        return result
 
     return wrapper
-
 
 @decorator_check_numbers
 def my_function_with_infinite_params(*args):
