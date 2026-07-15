@@ -1,16 +1,27 @@
+user_logged_in = False
 def requires_login(func):
-    def wrapper(parameters):
+    def wrapper(*args, **kwargs):
         # Logica extra
         if not user_logged_in:
-            print("Debe iniciar sesión para ver su perfil")
-            return
-        func(parameters) # Llamada a la funcion decorada
-				# Logica extra
-
+            raise ValueError("Debe iniciar sesión para ver su perfil")
+            
+        return func(*args, **kwargs) # Llamada a la funcion decorada
+				
     return wrapper
-
-    user_logged_in = False
 
 @requires_login
 def view_profile():
     print("Mostrando perfil del usuario")
+
+
+def test():
+    
+    try:
+        
+        print("--- Intento 1: Con user_logged_in = False ---")
+        view_profile()
+    except ValueError as error:
+        print(f"Excepción atrapada con éxito: {error}")
+
+
+test()
