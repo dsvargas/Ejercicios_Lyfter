@@ -3,11 +3,12 @@ from datetime import datetime
 def log_call(func):
     print
     def wrapper(*args, **kwargs):
-        print(f"Llamando a {func.__name__} con parámetros: {args}, {kwargs} Date: {datetime.now()} returned: {func(*args, **kwargs)}")
+        result = func(*args, **kwargs)
+        print(f"Llamando a {func.__name__} con parámetros: {args}, {kwargs} Date: {datetime.now()} returned: {result}")
 
         # Logica extra
 
-        return func(*args, **kwargs) # Llamada a la funcion decorada
+        return result # Llamada a la funcion decorada
 
                 # Logica extra
     return wrapper
