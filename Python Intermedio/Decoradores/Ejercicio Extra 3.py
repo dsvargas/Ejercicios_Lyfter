@@ -1,6 +1,7 @@
 from datetime import datetime
 
 def log_call(func):
+    print
     def wrapper(*args, **kwargs):
         print(f"Llamando a {func.__name__} con parámetros: {args}, {kwargs} Date: {datetime.now()} returned: {func(*args, **kwargs)}")
 
@@ -20,8 +21,9 @@ def validate_numbers(func):
         return func(*args, **kwargs)
     return wrapper
 
-@log_call
+
 @validate_numbers
+@log_call
 def multiply(**args):
     return args['number1'] * args['number2']
 
