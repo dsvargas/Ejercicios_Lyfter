@@ -24,9 +24,12 @@ class DoubleEndedQueue:
 
   def push_right(self, data):
     new_node = Node(data)
-    new_node.next = self.tail
-    self.tail = new_node
-  
+    if self.head is None:
+      self.head = new_node
+      self.tail = new_node
+    else:
+      self.tail.next = new_node
+      self.tail = new_node
 
   def pop_left(self):
     if self.head is None:
@@ -37,17 +40,27 @@ class DoubleEndedQueue:
     return popped_node.data
 
   def pop_right(self):
-    if self.tail is None:
-      #el queue esta vacio
-      return None
-    popped_node = self.tail
-    # Encontrar el nodo anterior al tail
+    if self.head is None:
+            return None
+        
+    popped_data = self.tail.data
+      
+    # CASO ESPECIAL: Solo hay 1 elemento en la estructura
+    if self.head == self.tail:
+        self.head = None
+        self.tail = None
+        return popped_data
+        
+    # CASO GENERAL: Más de 1 elemento (Buscamos el penúltimo nodo)
     current_node = self.head
     while current_node.next != self.tail:
-      current_node = current_node.next
+        current_node = current_node.next
+        
+    # Desconectamos el último nodo y actualizamos el tail
     self.tail = current_node
     self.tail.next = None
-    return popped_node.data
+    
+    return popped_data
 
   def print_structure(self):
     if self.head is None:
@@ -61,23 +74,23 @@ class DoubleEndedQueue:
           current_node = current_node.next
 
 
-test_stack = DoubleEndedQueue()
-test_stack.push_left(10)
-test_stack.push_left(20)
-test_stack.push_left(30)
-test_stack.print_structure()
-print("El Stack está vacío.")
-test_stack.push_right(10)
-test_stack.push_left(20)
-test_stack.push_right(30)
-test_stack.print_structure()
-print("El Stack está vacío.")
-test_stack.push_left(10)
-test_stack.push_right(20)
-test_stack.push_left(30)
-test_stack.print_structure()
-print("El Stack está vacío.")
+test_queue = DoubleEndedQueue()
 
+print("--- Prueba 1: push_left ---")
+test_queue.push_left(10)
+test_queue.push_left(20)
+test_queue.push_left(30)
+test_queue.print_structure()  # Salida: 30 -> 20 -> 10
 
-test_stack.pop_left()
-test_stack.print_structure()   
+print("\n--- Prueba 2: push_right ---")
+test_queue.push_right(5)
+test_queue.push_right(1)
+test_queue.print_structure()  # Salida: 30 -> 20 -> 10 -> 5 -> 1
+
+print("\n--- Prueba 3: pop_left ---")
+print("Removido del inicio:", test_queue.pop_left())  # 30
+test_queue.print_structure()  # Salida: 20 -> 10 -> 5 -> 1
+
+print("\n--- Prueba 4: pop_right ---")
+print("Removido del final:", test_queue.pop_right())   # 1
+test_queue.print_structure()  # Salida: 20 -> 10 -> 5
