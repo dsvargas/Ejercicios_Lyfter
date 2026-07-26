@@ -50,27 +50,27 @@ class DoubleEndedQueue:
         return popped_node.data
 
     def pop_right(self):
-    # 1. CASO 1: La cola está vacía
-    if self.head is None:
-        return None
-    
-    # 2. CASO 2: Solo hay un único nodo (head y tail apuntan al mismo)
-    if self.head.next is None:
-        popped_data = self.head.data
-        self.head = None
-        self.tail = None
-        return popped_data
-    
-    # 3. CASO 3: Hay más de un nodo (Búsqueda del penúltimo)
-    current_node = self.head
-    while current_node.next != self.tail:
-        current_node = current_node.next
+        # 1. CASO 1: La cola está vacía
+        if self.head is None:
+            return None
         
-    popped_data = self.tail.data
-    self.tail = current_node
-    self.tail.next = None
-    
-    return popped_data
+        # 2. CASO 2: Solo hay un único nodo (head y tail apuntan al mismo)
+        if self.head.next is None:
+            popped_data = self.head.data
+            self.head = None
+            self.tail = None
+            return popped_data
+        
+        # 3. CASO 3: Hay más de un nodo (Búsqueda del penúltimo)
+        current_node = self.head
+        while current_node.next != self.tail:
+            current_node = current_node.next
+            
+        popped_data = self.tail.data
+        self.tail = current_node
+        self.tail.next = None
+        
+        return popped_data
 
     def print_structure(self):
         if self.head is None:
