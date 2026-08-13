@@ -59,7 +59,16 @@ class Queue:
             current_node = current_node.next
         print("Final")
 
-
+    def print_all(self):
+        """Imprime todos los elementos de la cola."""
+        if self.head is None:
+            print("La cola está vacía.")
+            return
+        
+        current_node = self.head
+        while current_node is not None:
+            print(current_node.data)
+            current_node = current_node.next
 # ==========================================
 # 🧪 BLOQUE DE PRUEBAS
 # ==========================================
