@@ -74,6 +74,8 @@ class DoublyLinkedList:
         print("Inicio ->", end=" ")
         while current_node is not None:
             print(f"[{current_node.data}]", end=" -> ")
+            current_node = current_node.next
+        print("Final")
             
     def print_backward(self):
         """Imprime la estructura completa desde el final hacia el inicio."""
