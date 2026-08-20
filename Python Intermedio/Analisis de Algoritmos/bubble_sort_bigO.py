@@ -1,9 +1,9 @@
 def bublesort(arr):
     n = len(arr)
-    for i in range(n):
+    for i in range(n): # O(n)
         # Bucle de DERECHA a IZQUIERDA
         # Empieza en el último índice (n - 1) y baja hasta i
-        for j in range(n - 1, i, -1):
+        for j in range(n - 1, i, -1): # O(n^2)
             # Comparamos el elemento de la derecha con el de su izquierda
             if arr[j] < arr[j - 1]:
                 # Guardamos los valores antes de intercambiar solo para el print claro
