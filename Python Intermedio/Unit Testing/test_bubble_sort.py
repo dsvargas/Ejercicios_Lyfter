@@ -4,7 +4,8 @@
 #   Funciona con una lista grande (de más de 100 elementos.)
 #   Funciona con una lista vacía.
 #   No funciona con parámetros que no sean una lista.
-from Module.bubble_sort import bublesort
+
+from bubble_sort import bublesort
 
 def test_bubble_sort_small_list():
     #AAA
@@ -30,3 +31,13 @@ def test_bubble_sort_empty_list():
     expected_result = []
     # Assert
     assert bublesort(test_list) == expected_result
+
+def test_bubble_sort_non_list_input():
+    # Arrange
+    test_input = "not a list"
+    # Act & Assert
+    try:
+        bublesort(test_input)
+        assert False, "Expected TypeError for non-list input"
+    except TypeError:
+        pass  # Test passes if TypeError is raised
