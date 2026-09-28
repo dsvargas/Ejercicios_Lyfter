@@ -1,0 +1,26 @@
+{
+    "categories": [
+        "oscio",
+        "salary"
+    ],
+    "movements": [
+        {
+            "type": "Income",
+            "transaction_id": 1,
+            "title": "Salario quincenal",
+            "amount": 175000.0,
+            "category": "salary",
+            "description": "",
+            "date": ""
+        },
+        {
+            "type": "Expense",
+            "transaction_id": 2,
+            "title": "Gym",
+            "amount": 30000.0,
+            "category": "oscio",
+            "description": "",
+            "date": ""
+        }
+    ]
+}
