@@ -4,7 +4,7 @@ from typing import List
 from Models.transaction import Transaction, expense, income
 
 
-class finance_manager:
+class Finance_manager:
 
     def __init__(self, file_path: str = "finance_data.json"):
         self.file_path = file_path
