@@ -1,7 +1,7 @@
 import json
 import os
 from typing import List
-from Models.transaction import Transaction, expense, income
+from Models.transaction import Transaction, Expense, Income
 
 
 class Finance_manager:
@@ -13,7 +13,7 @@ class Finance_manager:
         self.load_data()  # Carga los datos guardados en disco al instanciar
 
     def add_category(self, category_name: str) -> bool:
-        category_clean = category_name.strip()
+        category_clean = category_name.strip().lower()
         if category_clean and category_clean not in self.categories:
             self.categories.append(category_clean)
             self.save_data()
@@ -30,10 +30,10 @@ class Finance_manager:
 
     def get_balance(self) -> float:
         total_income = sum(
-            m.amount for m in self.movements if isinstance(m, income)
+            m.amount for m in self.movements if isinstance(m, Income)
         )
         total_expense = sum(
-            m.amount for m in self.movements if isinstance(m, expense)
+            m.amount for m in self.movements if isinstance(m, Expense)
         )
         return total_income - total_expense
 
@@ -60,22 +60,22 @@ class Finance_manager:
                 for item in data.get("movements", []):
                     m_type = item.get("type")
                     if m_type == "Expense":
-                        mov = expense(
+                        mov = Expense(
                             title=item["title"],
                             amount=item["amount"],
                             category=item["category"],
                             description=item.get("description", ""),
-                            date=item.get("date", ""),
+                            movement_date=item.get("date", ""),
                             transaction_id=item.get("transaction_id"),
                         )
                         self.movements.append(mov)
                     elif m_type == "Income":
-                        mov = income(
+                        mov = Income(
                             title=item["title"],
                             amount=item["amount"],
                             category=item["category"],
                             description=item.get("description", ""),
-                            date=item.get("date", ""),
+                            movement_date=item.get("date"),
                             transaction_id=item.get("transaction_id"),
                         )
                         self.movements.append(mov)

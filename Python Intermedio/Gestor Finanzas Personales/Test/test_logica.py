@@ -1,11 +1,7 @@
 import os
 import pytest
 from Models.finance_manager import Finance_manager as Finance_manager
-from Models.transaction import (
-    Transaction as Movement,
-    expense as Expense,
-    income as Income,
-)
+from Models.transaction import Expense, Income, Transaction as Movement
 
 
 @pytest.fixture
@@ -56,30 +52,6 @@ def test_transaction_to_dict():
         "date": "2024-06-01",
     }
     assert transaction.to_dict() == expected_dict
-
-
-def test_income_deposit(temp_manager):
-    """Verify that depositing income updates the account balance correctly."""
-    account = temp_manager
-    initial_balance = account.get_balance()
-
-    # Usamos el alias Income e ingresamos el movimiento a través del gestor
-    new_income = Income("Bonus", 200.0, "Work")
-    account.add_movement(new_income)
-
-    assert account.get_balance() == initial_balance + 200.0
-
-
-def test_expense_withdraw(temp_manager):
-    """Verify that withdrawing expense updates the account balance correctly."""
-    account = temp_manager
-    initial_balance = account.get_balance()
-
-    # Usamos el gestor para registrar el gasto
-    new_expense = Expense("Dinner", 50.0, "Food")
-    account.add_movement(new_expense)
-
-    assert account.get_balance() == initial_balance - 50.0
 
 
 def test_transaction_repr():

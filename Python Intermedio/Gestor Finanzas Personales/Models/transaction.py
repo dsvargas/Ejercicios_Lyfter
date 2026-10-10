@@ -1,3 +1,4 @@
+from datetime import date
 class Transaction:
 
     def __init__(
@@ -6,12 +7,13 @@ class Transaction:
         amount: float,
         category: str,
         description: str = "",
-        date: str = "",
+        movement_date = None,
         transaction_id: int = None,
     ):
         self.transaction_id = transaction_id
         self.amount = float(amount)
-        self.date = date
+        # Aseguramos que se asigne la fecha actual si no viene una guardada
+        self.date = movement_date if movement_date else date.today().strftime("%Y-%m-%d")
         self.title = title
         self.description = description
         self.category = category
@@ -32,28 +34,15 @@ class Transaction:
         }
 
     def __repr__(self):
-        return f"Transaction({self.title}, {self.amount}, {self.category})"
+        return f"Transaction({self.title}, {self.amount}, {self.category}, {self.date})"
 
 
-class income(Transaction):
+class Income(Transaction):
 
     def get_movement_type(self) -> str:
         return "Income"
 
-    def deposit(self, account):
-        account.balance += self.amount
-        print(
-            f"Deposited {self.amount} to account. New balance: {account.balance}"
-        )
-
-
-class expense(Transaction):
+class Expense(Transaction):
 
     def get_movement_type(self) -> str:
         return "Expense"
-
-    def withdraw(self, account):
-        account.balance -= self.amount
-        print(
-            f"Withdrew {self.amount} from account. New balance: {account.balance}"
-        )

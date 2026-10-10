@@ -41,7 +41,7 @@ class MainView:
             [
                 sg.Table(
                     values=table_data,
-                    headings=["Type", "Title", "Amount", "Category"],
+                    headings=["Type", "Title", "Amount", "Category", "Date"],
                     auto_size_columns=True,
                     justification="center",
                     key="-TABLE-",
@@ -89,6 +89,7 @@ class MainView:
             [sg.Text(f"Add New {movement_type}", font=("Helvetica", 12, "bold"))],
             [sg.Text("Title:"), sg.InputText(key="-TITLE-")],
             [sg.Text("Amount:"), sg.InputText(key="-AMOUNT-")],
+            [sg.Text("Description:"), sg.InputText(key="-DESC-")],
             [
                 sg.Text("Category:"),
                 sg.Combo(categories, default_value=categories[0], key="-CAT-", readonly=True),
@@ -105,6 +106,7 @@ class MainView:
             if event == "Save":
                 title = values["-TITLE-"].strip()
                 amount_raw = values["-AMOUNT-"].strip()
+                description = values["-DESC-"].strip()
                 category = values["-CAT-"]
 
                 if not title:
@@ -119,7 +121,7 @@ class MainView:
                     sg.popup_error("Please enter a positive numeric amount.")
                     continue
 
-                result = (title, amount, category)
+                result = (title, amount, category, description)
                 break
 
         window.close()

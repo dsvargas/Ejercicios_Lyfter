@@ -1,13 +1,13 @@
 import FreeSimpleGUI as sg
-from Models.finance_manager import finance_manager
-from Models.transaction import expense, income
+from Models.finance_manager import Finance_manager
+from Models.transaction import Expense, Income
 from Views.interface_gui import MainView
 
 
 class AppController:
 
     def __init__(self):
-        self.finance_manager = finance_manager()
+        self.finance_manager = Finance_manager()
         self.interface_gui = MainView()
 
     def get_table_data(self):
@@ -18,6 +18,7 @@ class AppController:
                 m.title,
                 f"${m.amount:.2f}",
                 m.category,
+                m.date,
             ]
             for m in self.finance_manager.movements
         ]
@@ -66,20 +67,22 @@ class AppController:
                 )
 
                 if data:
-                    title, amount, category = data
+                    title, amount, category, description = data
 
                     # Crear la instancia correspondiente según la herencia de Transaction
                     new_movement = (
-                        expense(
+                        Expense(
                             title=title,
                             amount=amount,
                             category=category,
+                            description=description
                         )
                         if is_expense
-                        else income(
+                        else Income(
                             title=title,
                             amount=amount,
                             category=category,
+                            description=description
                         )
                     )
 
