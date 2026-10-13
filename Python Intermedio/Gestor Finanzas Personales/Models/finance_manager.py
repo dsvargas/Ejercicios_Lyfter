@@ -2,12 +2,17 @@ import json
 import os
 from typing import List
 from Models.transaction import Transaction, Expense, Income
-
+from pathlib import Path
 
 class Finance_manager:
 
     def __init__(self, file_path: str = "finance_data.json"):
-        self.file_path = file_path
+        base_dir = Path(__file__).resolve().parent
+        if file_path == "finance_data.json":
+            self.file_path = base_dir / file_path
+        else:
+            self.file_path = Path(file_path)
+
         self.categories: List[str] = []
         self.movements: List[Transaction] = []
         self.load_data()  # Carga los datos guardados en disco al instanciar
