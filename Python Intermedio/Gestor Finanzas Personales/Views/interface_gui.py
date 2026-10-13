@@ -109,19 +109,7 @@ class MainView:
                 description = values["-DESC-"].strip()
                 category = values["-CAT-"]
 
-                if not title:
-                    sg.popup_error("Please enter a valid title.")
-                    continue
-
-                try:
-                    amount = float(amount_raw)
-                    if amount <= 0:
-                        raise ValueError()
-                except ValueError:
-                    sg.popup_error("Please enter a positive numeric amount.")
-                    continue
-
-                result = (title, amount, category, description)
+                result = (title, amount_raw, category, description)
                 break
 
         window.close()

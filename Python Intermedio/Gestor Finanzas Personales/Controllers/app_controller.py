@@ -9,6 +9,13 @@ class AppController:
     def __init__(self):
         self.finance_manager = Finance_manager()
         self.interface_gui = MainView()
+        # Intentamos cargar los datos y verificamos si hubo errores
+        load_error = self.finance_manager.load_data()
+        if load_error:
+            # Mostramos el error en la interfaz gráfica en lugar de un print en consola
+            self.interface_gui.show_error(
+                f"Advertencia de carga:\n{load_error}\n\nSe iniciará con datos vacíos para proteger tu información."
+            )
 
     def get_table_data(self):
         """Formatea los movimientos de finance_manager para cargarlos en la tabla."""

@@ -21,6 +21,18 @@ class Finance_manager:
         return False
 
     def add_movement(self, movement: Transaction):
+        # Validar título
+        if not movement.title or not movement.title.strip():
+            raise ValueError("El título de la transacción no puede estar vacío.")
+
+        # Validar monto
+        try:
+            amount_val = float(movement.amount)
+            if amount_val <= 0:
+                raise ValueError("El monto debe ser un valor numérico positivo mayor a cero.")
+        except (TypeError, ValueError):
+            raise ValueError("El monto ingresado no es un número válido.")
+
         # Asignar un ID incremental básico si no existe
         if movement.transaction_id is None:
             movement.transaction_id = len(self.movements) + 1
@@ -54,6 +66,11 @@ class Finance_manager:
         try:
             with open(self.file_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
+
+                # Validamos que el JSON tenga la estructura esperada
+                if not isinstance(data, dict):
+                    raise ValueError("El archivo JSON no tiene un formato de diccionario válido.")
+
                 self.categories = data.get("categories", [])
                 self.movements = []
 
@@ -79,7 +96,9 @@ class Finance_manager:
                             transaction_id=item.get("transaction_id"),
                         )
                         self.movements.append(mov)
-        except Exception as e:
-            print(f"Error al cargar datos desde {self.file_path}: {e}")
-            self.categories = []
-            self.movements = []
+        except json.JSONDecodeError:
+            return "El archivo de datos está corrupto o tiene un formato JSON inválido."
+        except PermissionError:
+            return "No hay permisos de lectura para acceder al archivo de datos."
+        except (KeyError, TypeError, ValueError) as e:
+            return f"La estructura de los datos en el archivo está dañada: {e}"

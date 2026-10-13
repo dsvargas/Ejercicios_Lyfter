@@ -72,3 +72,17 @@ def test_transaction_id_assignment(temp_manager):
     assert inc.transaction_id is not None
     assert exp.transaction_id is not None
     assert inc.transaction_id != exp.transaction_id
+
+def test_load_data_invalid_structure(tmp_path):
+    """Verify that loading a JSON with invalid internal structure (e.g. a list instead of a dict) returns an error."""
+    invalid_file = tmp_path / "invalid_structure.json"
+    # Escribimos un JSON válido sintácticamente, pero que estructuralmente es una lista en vez de un diccionario
+    invalid_file.write_text(json.dumps(["not", "a", "dictionary"]), encoding="utf-8")
+
+    manager = FinanceManager(file_path=str(invalid_file))
+    error_message = manager.load_data()
+
+    assert error_message is not None
+    assert "formato" in error_message.lower() or "diccionario" in error_message.lower()
+    assert manager.movements == []
+    assert manager.categories == []
