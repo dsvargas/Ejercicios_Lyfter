@@ -1,5 +1,5 @@
 import FreeSimpleGUI as sg
-from Models.finance_manager import Finance_manager
+from Models.finance_manager import FinanceManager
 from Models.transaction import Expense, Income
 from Views.interface_gui import MainView
 
@@ -7,14 +7,13 @@ from Views.interface_gui import MainView
 class AppController:
 
     def __init__(self):
-        self.finance_manager = Finance_manager()
+        self.finance_manager = FinanceManager()
         self.interface_gui = MainView()
-        # Intentamos cargar los datos y verificamos si hubo errores
-        load_error = self.finance_manager.load_data()
-        if load_error:
-            # Mostramos el error en la interfaz gráfica en lugar de un print en consola
+        
+        # Verificamos el error de carga almacenado en el gestor (se ejecuta una sola vez)
+        if self.finance_manager.load_error:
             self.interface_gui.show_error(
-                f"Advertencia de carga:\n{load_error}\n\nSe iniciará con datos vacíos para proteger tu información."
+                f"Advertencia de carga:\n{self.finance_manager.load_error}\n\nSe iniciará con datos vacíos para proteger tu información."
             )
 
     def get_table_data(self):
@@ -76,31 +75,37 @@ class AppController:
                 if data:
                     title, amount, category, description = data
 
-                    # Crear la instancia correspondiente según la herencia de Transaction
-                    new_movement = (
-                        Expense(
-                            title=title,
-                            amount=amount,
-                            category=category,
-                            description=description
+                    #  PROTECCIÓN CONTRA CRASHES: Atrapamos ValueError 
+                    # (Ya sea que falle el constructor de Transaction con "abc" o add_movement con montos negativos)
+                    try:
+                        new_movement = (
+                            Expense(
+                                title=title,
+                                amount=amount,
+                                category=category,
+                                description=description
+                            )
+                            if is_expense
+                            else Income(
+                                title=title,
+                                amount=amount,
+                                category=category,
+                                description=description
+                            )
                         )
-                        if is_expense
-                        else Income(
-                            title=title,
-                            amount=amount,
-                            category=category,
-                            description=description
+
+                        # Guardar la transacción
+                        self.finance_manager.add_movement(new_movement)
+
+                        # 3. Actualizar la interfaz gráfica dinámicamente
+                        window["-TABLE-"].update(values=self.get_table_data())
+                        window["-BALANCE-"].update(
+                            f"Balance: ${self.finance_manager.get_balance():.2f}"
                         )
-                    )
-
-                    # Guardar la transacción
-                    self.finance_manager.add_movement(new_movement)
-
-                    # 3. Actualizar la interfaz gráfica dinámicamente
-                    window["-TABLE-"].update(values=self.get_table_data())
-                    window["-BALANCE-"].update(
-                        f"Balance: ${self.finance_manager.get_balance():.2f}"
-                    )
+                        
+                    except ValueError as e:
+                        # Mostramos el error en la interfaz sin cerrar la aplicación
+                        self.interface_gui.show_error(str(e))
 
         # 4. Destruir la ventana al salir
         window.close()

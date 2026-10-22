@@ -4,10 +4,14 @@ from typing import List
 from Models.transaction import Transaction, Expense, Income
 from pathlib import Path
 
-class Finance_manager:
+class FinanceManager:
 
     def __init__(self, file_path: str = "finance_data.json"):
-        base_dir = Path(__file__).resolve().parent
+        # Subimos dos niveles (.parent.parent) si estamos dentro de Models/ 
+        # para que el archivo JSON quede en la raíz del proyecto.
+        base_dir = Path(__file__).resolve().parent.parent
+        
+        # Si se pasa la ruta por defecto o una personalizada, se gestiona con Path
         if file_path == "finance_data.json":
             self.file_path = base_dir / file_path
         else:
@@ -16,6 +20,7 @@ class Finance_manager:
         self.categories: List[str] = []
         self.movements: List[Transaction] = []
         self.load_data()  # Carga los datos guardados en disco al instanciar
+        self.load_error = self.load_data()  # Guarda el error si ocurre, en lugar de ignorarlo
 
     def add_category(self, category_name: str) -> bool:
         category_clean = category_name.strip().lower()
@@ -72,37 +77,42 @@ class Finance_manager:
             with open(self.file_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
 
-                # Validamos que el JSON tenga la estructura esperada
-                if not isinstance(data, dict):
-                    raise ValueError("El archivo JSON no tiene un formato de diccionario válido.")
+            # Validamos que el JSON tenga la estructura esperada
+            if not isinstance(data, dict):
+                raise ValueError("El archivo JSON no tiene un formato de diccionario válido.")
 
-                self.categories = data.get("categories", [])
-                self.movements = []
+            self.categories = data.get("categories", [])
+            self.movements = []
 
-                for item in data.get("movements", []):
-                    m_type = item.get("type")
-                    if m_type == "Expense":
-                        mov = Expense(
-                            title=item["title"],
-                            amount=item["amount"],
-                            category=item["category"],
-                            description=item.get("description", ""),
-                            movement_date=item.get("date", ""),
-                            transaction_id=item.get("transaction_id"),
-                        )
-                        self.movements.append(mov)
-                    elif m_type == "Income":
-                        mov = Income(
-                            title=item["title"],
-                            amount=item["amount"],
-                            category=item["category"],
-                            description=item.get("description", ""),
-                            movement_date=item.get("date"),
-                            transaction_id=item.get("transaction_id"),
-                        )
-                        self.movements.append(mov)
+            # Mapeo de texto del JSON a la clase correspondiente
+            class_mapping = {
+                "Expense": Expense,
+                "Income": Income
+            }
+
+            for item in data.get("movements", []):
+                m_type = item.get("type")
+                
+                # Verificamos si la clase existe en nuestro mapeo
+                if m_type in class_mapping:
+                    movement_class = class_mapping[m_type]
+                    
+                    mov = movement_class(
+                        title=item["title"],
+                        amount=item["amount"],
+                        category=item["category"],
+                        description=item.get("description", ""),
+                        movement_date=item.get("date", ""),
+                        transaction_id=item.get("transaction_id"),
+                    )
+                    self.movements.append(mov)
+
         except json.JSONDecodeError:
-            return "El archivo de datos está corrupto o tiene un formato JSON inválido."
+            # Respalda el archivo dañado para evitar perder la información del usuario
+            if self.file_path.exists():
+                backup_path = self.file_path.with_name("finance_data_corrupted.json")
+                self.file_path.rename(backup_path)
+            return "El archivo de datos está corrupto. Se ha respaldado como 'finance_data_corrupted.json'."
         except PermissionError:
             return "No hay permisos de lectura para acceder al archivo de datos."
         except (KeyError, TypeError, ValueError) as e:

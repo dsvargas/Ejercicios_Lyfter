@@ -1,6 +1,7 @@
+import json
 import os
 import pytest
-from Models.finance_manager import Finance_manager as Finance_manager
+from Models.finance_manager import FinanceManager
 from Models.transaction import Expense, Income, Transaction as Movement
 
 
@@ -8,7 +9,7 @@ from Models.transaction import Expense, Income, Transaction as Movement
 def temp_manager(tmp_path):
     """Creates a temporary FinanceManager with an isolated JSON file."""
     db_file = tmp_path / "test_finance.json"
-    return Finance_manager(file_path=str(db_file))
+    return FinanceManager(file_path=str(db_file))
 
 
 def test_movement_inheritance():
@@ -31,10 +32,10 @@ def test_balance_calculation(temp_manager):
 
 
 def test_category_management(temp_manager):
-    """Verify category addition and duplicate prevention."""
+    """Verify category addition, lowercase storage, and duplicate prevention."""
     assert temp_manager.add_category("Entertainment") is True
     assert temp_manager.add_category("Entertainment") is False  # Duplicate
-    assert "Entertainment" in temp_manager.categories
+    assert "entertainment" in temp_manager.categories
 
 
 def test_transaction_to_dict():
@@ -55,9 +56,9 @@ def test_transaction_to_dict():
 
 
 def test_transaction_repr():
-    """Verify that the __repr__ method returns the expected string representation."""
-    transaction = Movement("Gym Membership", 30.0, "Health")
-    expected_repr = "Transaction(Gym Membership, 30.0, Health)"
+    """Verify that the __repr__ method includes the date and returns the expected string representation."""
+    transaction = Movement("Gym Membership", 30.0, "Health", movement_date="2024-06-01")
+    expected_repr = "Transaction(Gym Membership, 30.0, Health, 2024-06-01)"
     assert repr(transaction) == expected_repr
 
 
@@ -73,10 +74,10 @@ def test_transaction_id_assignment(temp_manager):
     assert exp.transaction_id is not None
     assert inc.transaction_id != exp.transaction_id
 
+
 def test_load_data_invalid_structure(tmp_path):
     """Verify that loading a JSON with invalid internal structure (e.g. a list instead of a dict) returns an error."""
     invalid_file = tmp_path / "invalid_structure.json"
-    # Escribimos un JSON válido sintácticamente, pero que estructuralmente es una lista en vez de un diccionario
     invalid_file.write_text(json.dumps(["not", "a", "dictionary"]), encoding="utf-8")
 
     manager = FinanceManager(file_path=str(invalid_file))
@@ -86,3 +87,10 @@ def test_load_data_invalid_structure(tmp_path):
     assert "formato" in error_message.lower() or "diccionario" in error_message.lower()
     assert manager.movements == []
     assert manager.categories == []
+
+
+def test_add_movement_invalid_amount(temp_manager):
+    """Verify that adding a movement with a negative or zero amount raises a ValueError."""
+    exp = Expense("Bad Expense", -50.0, "Food")
+    with pytest.raises(ValueError):
+        temp_manager.add_movement(exp)
