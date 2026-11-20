@@ -107,7 +107,7 @@ Es una API REST pública y gratuita que recopila y cataloga información detalla
 -
  
 **
-Nombre de la colección:
+Nombre de la colección: Studio Ghibli API
 **
 
 -
@@ -118,13 +118,13 @@ Solicitudes agregadas:
 
   
 -
- GET -
+ GET - Obtener detalle de la película (es el único método soportado por el endpoint de películas de esta API pública).
   
 -
- POST -
+ POST - No lo permite (la API es de solo lectura y no habilita la creación de nuevos recursos).
   
 -
- PUT/PATCH/DELETE -
+ PUT/PATCH/DELETE - No lo permite (la API no expone operaciones de actualización ni eliminación sobre sus registros).
 
 ###
  4.3 Ejecución y análisis
@@ -153,15 +153,15 @@ Solicitudes agregadas:
 |
 -------
 |
-
+obtener pelicula por ID
 |
-           
+           GET 
 |
-        
+        [https://ghibliapi.vercel.app/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49](https://ghibliapi.vercel.app/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49)
 |
-          
+         200 OK 
 |
-                   
+              Devuelve el JSON de My Neighbor Totoro con Content-Type: application/json; charset=utf-8.     
 |
        
 |
@@ -177,32 +177,37 @@ Solicitudes agregadas:
 -
  
 **
-Método HTTP:
+Método HTTP: GET
 **
 
 -
  
 **
-Endpoint:
+Endpoint: [https://ghibliapi.vercel.app/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49](https://ghibliapi.vercel.app/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49)
 **
 
 -
  
 **
-Parámetros / body:
+Parámetros / body: Ninguno (se pasa el UUID directamente en la ruta del endpoint y no requiere body).
 **
 
 -
  
 **
-Descripción de la respuesta:
+Descripción de la respuesta: Descripción de la respuesta: Retorna un objeto JSON con los metadatos de la película solicitada (id, title, original_title, description, director, producer, release_date, running_time, rt_score y arreglos de relaciones como people, species, locations y vehicles).
 **
 
 
 **
 ¿Qué aprendiste del proceso?
 **
+Aprendí a verificar qué métodos HTTP soporta realmente una API antes de asumir que todos los verbos (GET, POST, PUT, PATCH, DELETE) estarán disponibles. También entendí que las APIs públicas gratuitas suelen restringirse a modo lectura (read-only) para proteger la integridad de los datos compartidos, y que interpretar códigos de estado y headers (Content-Type) es clave para diagnosticar cómo responde un servidor.
 
 
 ###
  4.5 Reflexión final
+ A lo largo de este ejercicio comprendí que una API funciona como un puente estandarizado mediante peticiones HTTP donde el cliente solicita o intenta operar sobre recursos y el servidor responde con un código de estado, cabeceras y un cuerpo de datos (habitualmente en JSON). la api de Studio Ghibli API solo responde con éxito a GET y rechaza escrituras o eliminaciones deja en claro que los permisos y rutas disponibles dependen directamente de cómo el servidor haya sido diseñado y protegido.
+
+Postman hizo que esa comunicación cliente-servidor fuera mucho más tangible que solo leer teoría, porque permite armar la petición, cambiar el verbo HTTP o el endpoint y observar de inmediato qué devuelve el servidor. Ver en pantalla el 200 OK con el JSON estructurado frente a una respuesta de rechazo ayuda a conectar la teoría de HTTP con lo que ocurre realmente detrás de cualquier aplicación web o móvil.
+como dato estra que no tieene que ver con la api pero investigue a veces cuando se trata de resolver algun error el saber el significado de la respuesta como el 200 o el 404 me dicen por donde esta el camino.
